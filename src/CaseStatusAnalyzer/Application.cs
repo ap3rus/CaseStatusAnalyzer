@@ -17,6 +17,9 @@ namespace CaseStatusAnalyzer
 
         public Application(IServiceCollection serviceCollection)
         {
+            if (serviceCollection == null)
+                throw new ArgumentNullException(nameof(serviceCollection));
+
             _configuration = CreateConfiguration();
             ConfigureServices(serviceCollection);
 
@@ -26,7 +29,7 @@ namespace CaseStatusAnalyzer
             _caseWriter = _services.GetRequiredService<ICaseWriter>();
         }
 
-        private IConfiguration CreateConfiguration()
+        private static IConfiguration CreateConfiguration()
         {
             return new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory())
@@ -34,25 +37,28 @@ namespace CaseStatusAnalyzer
                 .Build();
         }
 
-        private void ConfigureServices(IServiceCollection serviceCollection)
+        private void ConfigureServices(IServiceCollection services)
         {
-            serviceCollection.AddOptions();
+            services.AddOptions();
 
-            serviceCollection.Configure<CaseProviderOptions>(_configuration.GetSection("CaseProviderOptions"));
-            serviceCollection.Configure<ReceiptHtmlProviderOptions>(_configuration.GetSection("ReceiptHtmlProviderOptions"));
-            serviceCollection.Configure<CaseCsvWriterOptions>(_configuration.GetSection("CaseCsvWriterOptions"));
-            serviceCollection.Configure<CaseParserOptions>(_configuration.GetSection("CaseParserOptions"));
+            services.Configure<I129CaseProviderOptions>(_configuration.GetSection("I129CaseProviderOptions"));
+            services.Configure<CaseProviderOptions>(_configuration.GetSection("CaseProviderOptions"));
+            services.Configure<ReceiptHtmlProviderOptions>(_configuration.GetSection("ReceiptHtmlProviderOptions"));
+            services.Configure<CaseCsvWriterOptions>(_configuration.GetSection("CaseCsvWriterOptions"));
+            services.Configure<CaseParserOptions>(_configuration.GetSection("CaseParserOptions"));
+            services.Configure<CrawlingStateProviderOptions>(_configuration.GetSection("CrawlingStateProviderOptions"));
 
-            serviceCollection.AddSingleton<IReceiptHtmlProvider, WebReceiptHtmlProvider>();
-            serviceCollection.AddSingleton<ICaseParser, CaseParser>();
-            serviceCollection.AddSingleton<ICaseProvider, CaseProvider>();
-            serviceCollection.AddSingleton<II129CaseProvider, I129CaseProvider >();
-            serviceCollection.AddSingleton<ICaseWriter, CaseCsvWriter>();
+            services.AddSingleton<IReceiptHtmlProvider, WebReceiptHtmlProvider>();
+            services.AddSingleton<ICaseParser, CaseParser>();
+            services.AddSingleton<ICaseProvider, CaseProvider>();
+            services.AddSingleton<II129CaseProvider, I129CaseProvider >();
+            services.AddSingleton<ICaseWriter, CaseCsvWriter>();
+            services.AddSingleton<ICrawlingStateProvider, CrawlingStateProvider>();
         }
 
-        public void ParseH1b()
+        public void ParseI129Cases()
         {
-            var allCases = _i129CaseProvider.GetCasesForFiscalYear("WAC", 16);
+            var allCases = _i129CaseProvider.GetCasesForFiscalYear();
             _caseWriter.Write(allCases);
         }
     }

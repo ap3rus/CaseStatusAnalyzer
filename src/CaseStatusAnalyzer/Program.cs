@@ -9,14 +9,14 @@ namespace CaseStatusAnalyzer
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main()
         {
             try
             {
                 IServiceCollection serviceCollection = new ServiceCollection();
                 ConfigureServices(serviceCollection);
                 Application application = new Application(serviceCollection);
-                application.ParseH1b();
+                application.ParseI129Cases();
             }
             catch(Exception ex)
             {

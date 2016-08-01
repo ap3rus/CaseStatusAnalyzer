@@ -13,11 +13,17 @@ namespace CaseStatusAnalyzer
 
         public WebReceiptHtmlProvider(IOptions<ReceiptHtmlProviderOptions> optionsAccessor)
         {
+            if (optionsAccessor == null)
+                throw new ArgumentNullException(nameof(optionsAccessor));
+
             _optionsAccessor = optionsAccessor;
         }
 
         public string GetReceiptHtml(string receiptNum)
         {
+            if (receiptNum == null)
+                throw new ArgumentNullException(nameof(receiptNum));
+
             var options = _optionsAccessor.Value;
             var url = string.Format(options.ReceiptUrlFormat, receiptNum);
 

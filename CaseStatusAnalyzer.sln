@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25123.0
+VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{3293AE6F-5B0A-4705-8C77-6DDE66E73504}"
 EndProject
@@ -11,6 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	EndProjectSection
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CaseStatusAnalyzer", "src\CaseStatusAnalyzer\CaseStatusAnalyzer.xproj", "{75DB41EE-83F4-406D-B017-0CCEC795ADA7}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "CaseStatusJson", "src\CaseStatusJson\CaseStatusJson.xproj", "{9724D71C-D6DC-41DC-BC67-95B3F543E3BC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -22,11 +24,16 @@ Global
 		{75DB41EE-83F4-406D-B017-0CCEC795ADA7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{75DB41EE-83F4-406D-B017-0CCEC795ADA7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{75DB41EE-83F4-406D-B017-0CCEC795ADA7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9724D71C-D6DC-41DC-BC67-95B3F543E3BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9724D71C-D6DC-41DC-BC67-95B3F543E3BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9724D71C-D6DC-41DC-BC67-95B3F543E3BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9724D71C-D6DC-41DC-BC67-95B3F543E3BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{75DB41EE-83F4-406D-B017-0CCEC795ADA7} = {3293AE6F-5B0A-4705-8C77-6DDE66E73504}
+		{9724D71C-D6DC-41DC-BC67-95B3F543E3BC} = {3293AE6F-5B0A-4705-8C77-6DDE66E73504}
 	EndGlobalSection
 EndGlobal

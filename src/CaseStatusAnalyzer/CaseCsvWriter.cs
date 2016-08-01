@@ -13,14 +13,25 @@ namespace CaseStatusAnalyzer
 
         public CaseCsvWriter(IOptions<CaseCsvWriterOptions> optionsAccessor)
         {
+            if (optionsAccessor == null)
+                throw new ArgumentNullException(nameof(optionsAccessor));
+
             _optionsAccessor = optionsAccessor;
         }
 
         public void Write(IEnumerable<Case> cases)
         {
+            if (cases == null)
+                throw new ArgumentNullException(nameof(cases));
+
             var options = _optionsAccessor.Value;
             var fileName = string.Format(options.OutputFileNameFormat, DateTime.UtcNow);
-            if (File.Exists(fileName))
+            var fileInfo = new FileInfo(fileName);
+
+            if (!fileInfo.Directory.Exists)
+                Directory.CreateDirectory(fileInfo.DirectoryName);
+
+            if (fileInfo.Exists)
             {
                 var backupFileName = $"{fileName}.{Guid.NewGuid()}.bak";
                 File.Move(fileName, backupFileName);
@@ -28,13 +39,13 @@ namespace CaseStatusAnalyzer
 
             using (var writer = File.CreateText(fileName))
             {
-                writer.WriteLine("Date,ReceiptNum,Status");
+                writer.WriteLine("Workday,Date,ReceiptNum,Status");
                 writer.Flush();
                 foreach (var currentCase in cases)
                 {
-                    writer.WriteLine(string.Format("{0},\"{1}\",\"{2}\""));
+                    writer.WriteLine($"{currentCase.Workday},{currentCase.LastUpdated},\"{currentCase.ReceiptNum}\",\"{currentCase.Status}\"");
+                    writer.Flush(); // todo move outside of loop after debugging
                 }
-                writer.Flush();
             }
         }
     }

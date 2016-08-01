@@ -10,6 +10,8 @@ namespace CaseStatusAnalyzer
         public string ReceiptNum { get; set; }
         public string Status { get; set; }
         public string Text { get; set; }
-        public DateTime Date { get; set; }
+        public DateTime Created { get; set; }
+        public DateTime LastUpdated { get; set; }
+        public int Workday { get; set; }
     }
 }

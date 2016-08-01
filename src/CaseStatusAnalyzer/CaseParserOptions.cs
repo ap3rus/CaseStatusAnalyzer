@@ -10,5 +10,6 @@ namespace CaseStatusAnalyzer
         public string CaseDetailsXPath { get; set; }
         public string CaseStatusXPath { get; set; }
         public string CaseTextXPath { get; set; }
+        public string CaseReceiptNumRegex { get; set; }
     }
 }
